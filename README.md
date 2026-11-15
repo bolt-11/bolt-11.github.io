@@ -15,8 +15,9 @@ archive/v1..v4/     earlier designs, kept for comparison
 
 ## Deploy to GitHub Pages
 
-Live at **https://bolt-11.github.io/portfolio/** — repo `bolt-11/portfolio`,
-branch `main`, folder `/ (root)`, Pages build type `legacy` (no Actions workflow,
+Live at **https://bolt-11.github.io/** — repo `bolt-11.github.io` (a user-site
+repo, so Pages serves it from the domain root instead of a `/repo/` subpath),
+branch `main`, folder `/ (root)`, build type `legacy` (no Actions workflow,
 `.nojekyll` keeps Jekyll out of the way).
 
 ### Updating
@@ -25,19 +26,15 @@ branch `main`, folder `/ (root)`, Pages build type `legacy` (no Actions workflow
 git add -A
 git commit -m "…"
 git push
-gh api repos/bolt-11/portfolio/pages/builds/latest --jq '.status'   # wait for "built"
+gh api repos/bolt-11/bolt-11.github.io/pages/builds/latest --jq '.status'   # wait for "built"
 ```
 
 A push republishes in roughly 20–40 s. If `git push` hangs waiting for a password
 prompt in a non-interactive shell, run `gh auth setup-git` once so git uses the
 gh credential helper.
 
-### Short URL
-
-Want `https://bolt-11.github.io` instead? Rename the repo to exactly
-`bolt-11.github.io` (Settings → General → Rename), point Pages at it again, then
-update the absolute URLs in `index.html`: `<link rel="canonical">`,
-`<meta property="og:url">`, and `<meta property="og:image">`.
+If a build sits on `building` for minutes, requeue it:
+`gh api --method POST repos/bolt-11/bolt-11.github.io/pages/builds`.
 
 ### After the first deploy
 
