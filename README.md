@@ -1,4 +1,4 @@
-# Portofolio — Fadli Darusalam
+# Portofolio
 
 Static portfolio site. Poster split: an identity plate on the left, a live
 data-rain panel and the work list on the right. Monospace only, no framework,
