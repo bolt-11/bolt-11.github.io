@@ -1,0 +1,12 @@
+# old design iterations stay local
+archive/
+
+# scratch / review screenshots
+_review*.png
+_p-*.png
+_default.png
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
