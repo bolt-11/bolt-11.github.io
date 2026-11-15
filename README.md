@@ -15,32 +15,35 @@ archive/v1..v4/     earlier designs, kept for comparison
 
 ## Deploy to GitHub Pages
 
-1. Create a repo on GitHub (e.g. `portfolio`).
-2. Push this folder:
+Live at **https://bolt-11.github.io/portfolio/** — repo `bolt-11/portfolio`,
+branch `main`, folder `/ (root)`, Pages build type `legacy` (no Actions workflow,
+`.nojekyll` keeps Jekyll out of the way).
+
+### Updating
 
 ```bash
-git init -b main
-git add .
-git commit -m "portfolio: poster split with palettes"
-git remote add origin git@github.com:bolt-11/portfolio.git
-git push -u origin main
+git add -A
+git commit -m "…"
+git push
+gh api repos/bolt-11/portfolio/pages/builds/latest --jq '.status'   # wait for "built"
 ```
 
-3. Repo → **Settings → Pages → Build and deployment**
-   - Source: **Deploy from a branch**
-   - Branch: **main** / folder **/ (root)**
-   - Save, wait ~1 minute.
+A push republishes in roughly 20–40 s. If `git push` hangs waiting for a password
+prompt in a non-interactive shell, run `gh auth setup-git` once so git uses the
+gh credential helper.
 
-Live at `https://bolt-11.github.io/portfolio/`. Want the short URL
-`https://bolt-11.github.io`? Name the repo exactly `bolt-11.github.io`.
+### Short URL
+
+Want `https://bolt-11.github.io` instead? Rename the repo to exactly
+`bolt-11.github.io` (Settings → General → Rename), point Pages at it again, then
+update the absolute URLs in `index.html`: `<link rel="canonical">`,
+`<meta property="og:url">`, and `<meta property="og:image">`.
 
 ### After the first deploy
 
-Update the absolute URLs in `index.html` so link previews resolve:
-
-- `<link rel="canonical" href="...">`
-- `<meta property="og:url" content="...">`
-- the `"url"` field in the JSON-LD block
+The absolute URLs in `index.html` already point at the live site —
+`<link rel="canonical">`, `<meta property="og:url">` and
+`<meta property="og:image">`. Change them together if the repo is ever renamed.
 
 ## Palettes
 
